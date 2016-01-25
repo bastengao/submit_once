@@ -1,6 +1,6 @@
 # SubmitOnce
 
-Prevent from submitting form twice for rails.
+Prevent from submitting form twice for Rails.
 
 ## Installation
 
@@ -13,7 +13,7 @@ gem 'submit_once'
 ## Usage
 
 posts/new.html.erb
-```
+```erb
 <%= form_for @post do |f| %>
   <!-- token tag here -->
   <%= form_token_tag %>
