@@ -2,6 +2,11 @@
 
 Prevent from submitting form twice for Rails.
 
+Scenario: when user wanna add a post, usually go to *new* page first, input some information and submit,
+it will redirect to success page if these is no error. However after all if user click backward button on browser, it will render history page(the new page before), user could submit same form again.
+
+`SubmitOnce` gem resolve this problem. Form could be submitted only browser fetch a new fresh one.
+
 ## Installation
 
 Add this line to your application's Gemfile:
