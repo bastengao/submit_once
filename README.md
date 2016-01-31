@@ -34,6 +34,9 @@ posts_controller.rb
 class PostsController < ApplicationController
   # return to root_url when form submit again
   before_action :check_form_token!, only: [:create]
+  
+  # OR custom before action 
+  # before_action :custom_check_form_token
 
   def index
   end
@@ -43,6 +46,14 @@ class PostsController < ApplicationController
 
   def create
     ...
+  end
+  
+  private
+  def custom_check_form_token
+    # using `check_form_token`
+    unless check_form_token
+      redirect_to posts_url, alert: 'Invalid form token'
+    end
   end
 end
 ```
