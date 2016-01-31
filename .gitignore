@@ -7,3 +7,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+/.idea
+/bin
+/spec/dummy/tmp
+/spec/dummy/db/*.sqlite3
+/spec/dummy/log/*.log
