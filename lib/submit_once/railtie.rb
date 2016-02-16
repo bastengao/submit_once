@@ -10,7 +10,6 @@ module SubmitOnce
       end
 
       ActiveSupport.on_load :action_view do
-        puts 'load action view'
         include ViewHelper
       end
     end
