@@ -1,6 +1,6 @@
 require 'rails'
 require 'submit_once/controller_helper'
-require 'submit_once/View_helper'
+require 'submit_once/view_helper'
 
 module SubmitOnce
   class Railtie < Rails::Railtie
