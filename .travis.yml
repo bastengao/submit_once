@@ -1,4 +1,8 @@
 language: ruby
 rvm:
   - 2.2.3
-before_install: gem install bundler -v 1.11.2
+before_install:
+  - gem install bundler -v 1.11.2
+sripts:
+  - RAILS_ENV=test bundle exec rake db:create db:migrate --trace
+  - bundle exec rspec spec
