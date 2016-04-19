@@ -12,8 +12,14 @@ module SubmitOnce
 
     # TODO: force or no
     def check_form_token
-      if session[TOKEN_KEY] == params[TOKEN_KEY]
-        session[TOKEN_KEY] = nil
+      # TODO: 顺便做超时 token 清理工作
+      clean_expired_token
+
+      return false if params[TOKEN_KEY].blank?
+
+      form_token_key = params[TOKEN_KEY]
+      if session[form_token_key] == params[TOKEN_VALUE]
+        session.delete(form_token_key)
         true
       else
         false
@@ -28,8 +34,21 @@ module SubmitOnce
     end
 
     def gen_form_token
+      clean_expired_token
+      
+      @__form_token_key ||= "#{TOKEN_KEY}#{Time.now.to_i}"
       @__form_token ||=
-      (session[TOKEN_KEY] = Digest::SHA1.hexdigest((Time.now.to_i + rand(0xffffff)).to_s)[0..39])
+        (session[@__form_token_key] = Digest::SHA1.hexdigest((Time.now.to_i + rand(0xffffff)).to_s)[0..39])
+      [@__form_token_key, @__form_token]
+    end
+
+    def clean_expired_token
+      session.each do |key, value|
+        if key.start_with? TOKEN_KEY
+          timestamp = Time.zone.at key.sub(TOKEN_KEY, '').to_i
+          session.delete(key) if timestamp < 30.minutes.ago
+        end
+      end
     end
   end
 end

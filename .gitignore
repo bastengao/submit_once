@@ -8,6 +8,7 @@
 /spec/reports/
 /tmp/
 /.idea
+/.byebug_history
 /bin
 /spec/dummy/tmp
 /spec/dummy/db/*.sqlite3
