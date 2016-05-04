@@ -35,7 +35,7 @@ module SubmitOnce
 
     def gen_form_token
       clean_expired_token
-      
+
       @__form_token_key ||= "#{TOKEN_KEY}#{Time.now.to_i}"
       @__form_token ||=
         (session[@__form_token_key] = Digest::SHA1.hexdigest((Time.now.to_i + rand(0xffffff)).to_s)[0..39])
@@ -43,7 +43,7 @@ module SubmitOnce
     end
 
     def clean_expired_token
-      session.each do |key, value|
+      session.to_hash.each do |key, value|
         if key.start_with? TOKEN_KEY
           timestamp = Time.zone.at key.sub(TOKEN_KEY, '').to_i
           session.delete(key) if timestamp < 30.minutes.ago
