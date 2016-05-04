@@ -42,11 +42,15 @@ module SubmitOnce
       [@__form_token_key, @__form_token]
     end
 
+    def clean_expired_token_probably
+      clean_expired_token if rand < 0.5
+    end
+
     def clean_expired_token
       session.to_hash.each do |key, value|
         if key.start_with? TOKEN_KEY
           timestamp = Time.zone.at key.sub(TOKEN_KEY, '').to_i
-          session.delete(key) if timestamp < 30.minutes.ago
+          session.delete(key) if timestamp < 10.minutes.ago
         end
       end
     end
